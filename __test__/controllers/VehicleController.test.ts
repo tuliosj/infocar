@@ -129,4 +129,11 @@ describe("Vehicles", () => {
       assert.strictEqual(response.status, 400);
     });
   });
+
+  describe("Index", () => {
+    it("Should be able to read every vehicle", async () => {
+      const response = await request(app).get("/vehicles");
+      assert.strictEqual(response.status, 200);
+    });
+  });
 });

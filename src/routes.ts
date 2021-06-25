@@ -21,5 +21,6 @@ router.put(
   vehicleController.update
 );
 router.delete("/vehicles/:renavam", vehicleController.delete);
+router.get("/vehicles", vehicleController.index);
 
 export { router };

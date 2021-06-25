@@ -98,6 +98,18 @@ class VehicleController {
       return response.status(400).json({ error: "Vehicle doesn't exist!" });
     }
   }
+
+  async index(request: Request, response: Response) {
+    const vehiclesRepository = getCustomRepository(VehiclesRepository);
+
+    const vehicles = await vehiclesRepository.find();
+
+    if (vehicles) {
+      return response.status(200).json(vehicles);
+    } else {
+      return response.status(400).json({ error: "Unknown error!" });
+    }
+  }
 }
 
 export { VehicleController };
