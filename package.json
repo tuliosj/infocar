@@ -7,7 +7,7 @@
     "dev": "ts-node-dev src/server.ts",
     "typeorm": "ts-node-dev node_modules/typeorm/cli.js",
     "test": "env NODE_ENV=test mocha --require ts-node/register ./__test__/controllers/VehicleController.test.ts",
-    "posttest": "rm ./src/database/database.test.sqlite"
+    "test:win": "set NODE_ENV=test mocha --require ts-node/register ./__test__/controllers/VehicleController.test.ts"
   },
   "repository": {
     "type": "git",

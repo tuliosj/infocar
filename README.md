@@ -20,6 +20,9 @@ $ npm run dev
 
 # Run tests
 $ npm run test
+
+# Tests on Windows (uses set instead of env)
+$ npm run test:win
 ```
 
 ## Tests
