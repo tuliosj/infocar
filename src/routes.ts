@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { VehicleController } from "./controllers/VehicleController";
-import { createVehicleSchema } from "./schemas/Vehicles";
+import { createVehicleSchema, updateVehicleSchema } from "./schemas/Vehicles";
 import { validateVehicleSchema } from "./middlewares/Vehicles";
 
 const router = Router();
@@ -14,5 +14,11 @@ router.post(
   vehicleController.create
 );
 router.get("/vehicles/:renavam", vehicleController.read);
+router.put(
+  "/vehicles/:renavam",
+  updateVehicleSchema,
+  validateVehicleSchema,
+  vehicleController.update
+);
 
 export { router };

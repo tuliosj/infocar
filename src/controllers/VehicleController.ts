@@ -43,6 +43,35 @@ class VehicleController {
       return response.status(400).json({ error: "Vehicle doesn't exist!" });
     }
   }
+
+  async update(request: Request, response: Response) {
+    const currentRenavam = request.params.renavam;
+
+    const { placa, chassi, renavam, modelo, marca, ano } = request.body;
+
+    const vehiclesRepository = getCustomRepository(VehiclesRepository);
+
+    const currentVehicle = await vehiclesRepository.findOne({
+      renavam: currentRenavam,
+    });
+
+    if (!currentVehicle) {
+      return response.status(400).json({ error: "Vehicle doesn't exist!" });
+    }
+
+    const updatedVehicle = {
+      placa: placa || currentVehicle.placa,
+      chassi: chassi || currentVehicle.chassi,
+      renavam: renavam || currentVehicle.renavam,
+      modelo: modelo || currentVehicle.modelo,
+      marca: marca || currentVehicle.marca,
+      ano: ano || currentVehicle.ano,
+    };
+
+    await vehiclesRepository.update(currentVehicle.id, updatedVehicle);
+
+    return response.status(200).json(updatedVehicle);
+  }
 }
 
 export { VehicleController };

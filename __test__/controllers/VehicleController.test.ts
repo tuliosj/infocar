@@ -67,4 +67,54 @@ describe("Vehicles", () => {
       assert.strictEqual(response.status, 400);
     });
   });
+
+  describe("Update", () => {
+    it("Should be able to update an existing vehicle", async () => {
+      const response = await request(app).put("/vehicles/82895498795").send({
+        placa: "OPA-9001",
+        chassi: "1FtAAKrBbg7y64492",
+        renavam: "82895498120",
+        modelo: "ONIX  Lollapalooza 1.0 F.Power 5p Mec.",
+        marca: "GM - Chevrolet",
+        ano: 2014,
+      });
+      assert.strictEqual(response.status, 200);
+    });
+
+    it("Should not be able to update a renavam which doesn't exist", async () => {
+      const response = await request(app).put("/vehicles/d gf").send({
+        placa: "MWU-8907",
+        chassi: "1FtAAKrBbg7y64492",
+        renavam: "82895498795",
+        modelo: "ONIX  Lollapalooza 1.0 F.Power 5p Mec.",
+        marca: "GM - Chevrolet",
+        ano: 2014,
+      });
+      assert.strictEqual(response.status, 400);
+    });
+
+    it("Should be able to update an existing vehicle with the wrong parameters", async () => {
+      const response = await request(app).put("/vehicles/82895498120").send({
+        placa: "MWU-8907",
+        chassi: "1FtAAKrBbg7y6asdasdacxvxcvxcvxcv4492",
+        renavam: "82895498795",
+        modelo: "ONIX  Lollapalooza 1.0 F.Power 5p Mec.",
+        marca: "GM - Chevrolet",
+        ano: 2014,
+      });
+      assert.strictEqual(response.status, 400);
+    });
+
+    it("Should be able to update an existing vehicle with a new renavam", async () => {
+      const response = await request(app).put("/vehicles/82895498120").send({
+        placa: "UAU-9001",
+        chassi: "1FtAAKrBbg7y64492",
+        renavam: "82895498120",
+        modelo: "ONIX  Lollapalooza 1.0 F.Power 5p Mec.",
+        marca: "GM - Chevrolet",
+        ano: 2014,
+      });
+      assert.strictEqual(response.status, 200);
+    });
+  });
 });
