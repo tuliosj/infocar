@@ -55,4 +55,16 @@ describe("Vehicles", () => {
       assert.strictEqual(duplicate.status, 400);
     });
   });
+
+  describe("Read", () => {
+    it("Should be able to read a vehicle's attributes based on the renavam", async () => {
+      const response = await request(app).get("/vehicles/82895498795");
+      assert.strictEqual(response.status, 200);
+    });
+
+    it("Should return 400 when the renavam doesn't exist in the database", async () => {
+      const response = await request(app).get("/vehicles/d gf");
+      assert.strictEqual(response.status, 400);
+    });
+  });
 });
