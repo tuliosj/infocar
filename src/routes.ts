@@ -20,5 +20,6 @@ router.put(
   validateVehicleSchema,
   vehicleController.update
 );
+router.delete("/vehicles/:renavam", vehicleController.delete);
 
 export { router };

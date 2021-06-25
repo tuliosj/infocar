@@ -72,6 +72,32 @@ class VehicleController {
 
     return response.status(200).json(updatedVehicle);
   }
+
+  async delete(request: Request, response: Response) {
+    const { renavam } = request.params;
+
+    const vehiclesRepository = getCustomRepository(VehiclesRepository);
+
+    const vehicle = await vehiclesRepository.findOne({
+      renavam,
+    });
+
+    if (vehicle) {
+      const success = await vehiclesRepository.delete(vehicle.id);
+
+      const stillExists = await vehiclesRepository.findOne({
+        renavam,
+      });
+      if (stillExists) {
+        return response
+          .status(400)
+          .json({ error: "Unknown error while deleting" });
+      }
+      return response.status(200).json({ response: "Success" });
+    } else {
+      return response.status(400).json({ error: "Vehicle doesn't exist!" });
+    }
+  }
 }
 
 export { VehicleController };

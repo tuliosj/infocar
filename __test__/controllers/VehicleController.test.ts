@@ -117,4 +117,16 @@ describe("Vehicles", () => {
       assert.strictEqual(response.status, 200);
     });
   });
+
+  describe("Delete", () => {
+    it("Should be able to delete a vehicle based on the renavam", async () => {
+      const response = await request(app).delete("/vehicles/09613783526");
+      assert.strictEqual(response.status, 200);
+    });
+
+    it("Should return 400 when the renavam doesn't exist in the database", async () => {
+      const response = await request(app).delete("/vehicles/d gf");
+      assert.strictEqual(response.status, 400);
+    });
+  });
 });
